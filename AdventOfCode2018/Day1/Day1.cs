@@ -11,25 +11,21 @@ namespace AdventOfCode2018
     {
         public static void Process()
         {
-            var part2 = int.MinValue;
-            var set = new List<int> { 0 };
-            var part1 = File.ReadAllLines("Day1\\input.txt")
-                .Select(d => int.Parse(d))
-                .Aggregate(0, (sum, next) =>
-                {
-                    var result = sum + next;
+            // Read input integers.
+            var input = File.ReadAllLines("Day1\\input.txt").Select(d => int.Parse(d)).ToList();
 
-                    if (!set.Contains(result))
-                    {
-                        set.Add(result);
-                    }
-                    else if (part2 == int.MinValue)
-                    {
-                        part2 = result;
-                    }
+            // Calculate part 1.
+            var part1 = input.Aggregate(0, (sum, next) => sum + next);
 
-                    return result;
-                });
+            int part2 = 0;
+            int index = 0;
+            var set = new HashSet<int>();
+            while (!set.Contains(part2))
+            {
+                set.Add(part2);
+                part2 += input[index];
+                index = (index + 1) % input.Count;
+            }
 
             Console.WriteLine("Day 1");
             Console.WriteLine("     - Part 1: " + part1);
