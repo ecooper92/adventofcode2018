@@ -12,6 +12,7 @@ namespace AdventOfCode2018
         static void Main(string[] args)
         {
             Day1.Process();
+            Day2.Process();
 
             while (true)
             {
