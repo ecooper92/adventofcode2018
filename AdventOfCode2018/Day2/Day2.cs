@@ -62,7 +62,7 @@ namespace AdventOfCode2018
                 }
             }
 
-            Console.WriteLine("Day 1");
+            Console.WriteLine("Day 2");
             Console.WriteLine("     - Part 1: " + part1);
             Console.WriteLine("     - Part 2: " + part2);
         }
