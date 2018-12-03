@@ -13,6 +13,7 @@ namespace AdventOfCode2018
         {
             Day1.Process();
             Day2.Process();
+            Day3.Process();
 
             while (true)
             {
