@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -70,6 +71,52 @@ namespace AdventOfCode2018
                         Height: int.Parse(m.Groups[5].Value));
                 })
                 .ToArray();
+        }
+
+        private static void DrawHeatMap(List<int>[,] area)
+        {
+            var bitmap = new Bitmap(area.GetLength(0), area.GetLength(1));
+            using (var g = Graphics.FromImage(bitmap))
+            {
+                g.DrawLine(Pens.Red, 0, 0, 0, area.GetLength(1));
+                g.DrawLine(Pens.Red, 0, 0, area.GetLength(0), 0);
+                g.DrawLine(Pens.Red, 0, area.GetLength(1) - 1, area.GetLength(0), area.GetLength(1) - 1);
+                g.DrawLine(Pens.Red, area.GetLength(0) - 1, 0, area.GetLength(0) - 1, area.GetLength(1));
+                var b1 = new SolidBrush(Color.FromArgb(100, 0, 255, 0));
+                var b2 = new SolidBrush(Color.FromArgb(200, 0, 255, 0));
+                var b3 = new SolidBrush(Color.FromArgb(255, 0, 255, 0));
+
+                for (int y = 0; y < area.GetLength(1); y++)
+                {
+                    for (int x = 0; x < area.GetLength(0); x++)
+                    {
+                        if (area[x, y] != null)
+                        {
+                            if (area[x, y].Count == 1)
+                            {
+                                g.FillRectangle(b1, x, y, 1, 1);
+                            }
+                            else if (area[x, y].Count == 2)
+                            {
+                                g.FillRectangle(b2, x, y, 1, 1);
+                            }
+                            else if (area[x, y].Count == 3)
+                            {
+                                g.FillRectangle(b3, x, y, 1, 1);
+                            }
+                            else
+                            {
+                                g.DrawRectangle(Pens.Yellow, x, y, 1, 1);
+                            }
+                        }
+                    }
+                }
+            }
+
+            using (Graphics g = Graphics.FromHwnd(DrawUtilities.GetConsoleWindow()))
+            {
+                g.DrawImage(bitmap, new Rectangle(350, 12, 450, 450));
+            }
         }
     }
 }

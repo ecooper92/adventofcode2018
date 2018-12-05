@@ -49,11 +49,10 @@ namespace AdventOfCode2018
                     }
                 }
             }
-
-            var part2 = longestGuard * longestMinute;
+            
             Console.WriteLine("Day 4");
             Console.WriteLine("     - Part 1: " + sleepiestGuard * sleepiestMinute);
-            Console.WriteLine("     - Part 2: " + part2);
+            Console.WriteLine("     - Part 2: " + longestGuard * longestMinute);
         }
 
         private static IEnumerable<(int Guard, TimeSpan SleepingTime, int SleepStart)> GetData()
