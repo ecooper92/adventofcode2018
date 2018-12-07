@@ -104,7 +104,7 @@ namespace AdventOfCode2018
             Console.WriteLine("     - Part 1: " + part1);
             Console.WriteLine("     - Part 2: " + part2);
 
-            DrawNeighborhood(area);
+            //DrawNeighborhood(area);
         }
 
         private static void FillInMap(int xStart, int yStart, int id, (int distance, IList<int> ids)[,] area)
