@@ -104,7 +104,7 @@ namespace AdventOfCode2018
             Console.WriteLine("     - Part 1: " + part1);
             Console.WriteLine("     - Part 2: " + part2);
 
-            //DrawNeighborhood(area);
+            DrawNeighborhood(area);
         }
 
         private static void FillInMap(int xStart, int yStart, int id, (int distance, IList<int> ids)[,] area)
@@ -149,9 +149,16 @@ namespace AdventOfCode2018
                         {
                             g.FillRectangle(Brushes.Yellow, x, y, 1, 1);
                         }
-                        else if(area[x, y].ids.Count == 2)
+                        else if (area[x, y].ids.Count == 2)
                         {
                             g.FillRectangle(Brushes.Red, x, y, 1, 1);
+                        }
+                        else if (area[x, y].ids[0] != area[Math.Max(x - 1, 0), y].ids[0]
+                            || area[x, y].ids[0] != area[x, Math.Max(y - 1, 0)].ids[0]
+                            || area[x, y].ids[0] != area[Math.Min(x + 1, area.GetLength(0) - 1), y].ids[0]
+                            || area[x, y].ids[0] != area[x, Math.Min(y + 1, area.GetLength(1) - 1)].ids[0])
+                        {
+                            g.FillRectangle(Brushes.Purple, x, y, 1, 1);
                         }
                         else if (area[x, y].distance == 0)
                         {
