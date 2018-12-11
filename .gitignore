@@ -5,3 +5,5 @@
 /.vs
 /AdventOfCode2018/obj
 /AdventOfCode2018/bin
+/AdventOfCode2018.Winforms/obj/Debug
+/AdventOfCode2018.Winforms/bin/Debug

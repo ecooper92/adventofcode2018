@@ -11,7 +11,7 @@ namespace AdventOfCode2018
     {
         static void Main(string[] args)
         {
-            Console.SetWindowSize(240, 63);
+            Console.SetWindowSize(174, 41);
 
             //Day1.Process();
             //Day2.Process();
