@@ -13,14 +13,16 @@ namespace AdventOfCode2018
         {
             Console.SetWindowSize(240, 63);
 
-            Day1.Process();
-            Day2.Process();
-            Day3.Process();
-            Day4.Process();
-            Day5.Process();
-            Day6.Process();
-            Day7.Process();
-            Day8.Process();
+            //Day1.Process();
+            //Day2.Process();
+            //Day3.Process();
+            //Day4.Process();
+            //Day5.Process();
+            //Day6.Process();
+            //Day7.Process();
+            //Day8.Process();
+            //Day9.Process();
+            Day10.Process();
 
             while (true)
             {
