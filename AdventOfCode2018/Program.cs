@@ -21,8 +21,8 @@ namespace AdventOfCode2018
             //Day6.Process();
             //Day7.Process();
             //Day8.Process();
-            Day9.Process();
-            //Day11.Process();
+            //Day9.Process();
+            Day11.Process();
 
             while (true)
             {

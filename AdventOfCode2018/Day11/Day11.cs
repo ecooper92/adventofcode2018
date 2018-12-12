@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -19,8 +20,10 @@ namespace AdventOfCode2018
             // Calculate part 1.
             var part1 = string.Empty;
 
-            var sn = 5093;
-            var area = new int[300, 300];
+            var sn = 3628;
+            var area = new int[300, 300, 301];
+            var xSums = new int[300, 300, 300];
+            var ySums = new int[300, 300, 300];
             for (int y = 0; y < area.GetLength(1); y++)
             {
                 for (int x = 0; x < area.GetLength(0); x++)
@@ -33,7 +36,9 @@ namespace AdventOfCode2018
                     var digit = (int)(powerLevel / Math.Pow(10, 2)) % 10;
                     digit -= 5;
 
-                    area[x, y] = digit;
+                    xSums[x, y, 1] = digit;
+                    ySums[x, y, 1] = digit;
+                    area[x, y, 1] = digit;
                 }
             }
 
@@ -41,38 +46,28 @@ namespace AdventOfCode2018
             int maxX = 0;
             int maxY = 0;
             var max = int.MinValue;
-            for (int size = 1; size < 300; size++)
+            for (int size = 2; size <= 300; size++)
             {
                 for (int y = 0; y < area.GetLength(1) - size - 1; y++)
                 {
                     for (int x = 0; x < area.GetLength(0) - size - 1; x++)
                     {
-                        var sum = 0;
-                        for (int ySize = 0; ySize < size; ySize++)
-                        {
-                            for (int xSize = 0; xSize < size; xSize++)
-                            {
-                                sum += area[x + xSize, y + ySize];
-                            }
-                        }
+                        xSums[x, y + size - 1, size] = xSums[x, y + size - 1, size - 1] + area[x + size - 1, y + size - 1, 1];
+                        ySums[x + size - 1, y, size] = ySums[x + size - 1, y, size - 1] + area[x + size - 1, y + size - 1, 1];
+                        area[x, y, size] = area[x, y, size - 1] + xSums[x, y + size - 1, size - 1] + ySums[x + size - 1, y, size];
 
-                        if (sum > max)
+                        if (area[x, y, size] > max)
                         {
                             maxSize = size;
                             maxX = x + 1;
                             maxY = y + 1;
-                            max = sum;
+                            max = area[x, y, size];
                         }
                     }
                 }
             }
 
-            // Calculate part 2.
-            var part2 = 0;
-
             Console.WriteLine("Day 11");
-            Console.WriteLine("     - Part 1: " + part1);
-            Console.WriteLine("     - Part 2: " + part2);
         }
     }
 }
