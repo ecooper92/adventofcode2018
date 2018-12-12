@@ -16,37 +16,52 @@ namespace AdventOfCode2018
         {
             // Read input lines.
             var line = "404 players; last marble is worth 71852 points";
-            var test = "9 players; last marble is worth 32 points";
+            var test = "10 players; last marble is worth 1618 points";
 
-            var match = Regex.Match(test, "([0-9]+) players; last marble is worth ([0-9]+) points", RegexOptions.Compiled);
+            var match = Regex.Match(line, "([0-9]+) players; last marble is worth ([0-9]+) points", RegexOptions.Compiled);
             var players = int.Parse(match.Groups[1].Value);
-            var finalPoints = int.Parse(match.Groups[2].Value);
+            var finalPoints = int.Parse(match.Groups[2].Value) * 100;
 
             // Calculate part 1.
             var part1 = 0;
-            var tree = new LinkedList<int>();
-            tree.AddFirst(0);
-            var currentNode = tree.AddLast(1);
-            var scores = new int[players];
 
-            var counter = 2;
-            var isLeft = true;
-            while (true)
+            var counter = 0;
+            var scores = new long[players];
+            var circle = new LinkedList<int>();
+            var current = circle.AddFirst(0);
+            while ((counter + 1) <= finalPoints)
             {
-                if (counter % 23 == 0)
+                if ((counter + 1) % 23 == 0)
                 {
-                    //scores[counter % players] += counter + 
-                    isLeft = true;
-                }
-                else if (isLeft)
-                {
-                    currentNode = tree.AddBefore(currentNode, counter++);
-                    isLeft = false;
+                    var previous = current.Previous ?? circle.Last;
+                    previous = previous.Previous ?? circle.Last;
+                    previous = previous.Previous ?? circle.Last;
+                    previous = previous.Previous ?? circle.Last;
+                    previous = previous.Previous ?? circle.Last;
+
+                    var nextprevious = previous.Previous ?? circle.Last;
+                    previous = nextprevious.Previous ?? circle.Last;
+
+                    scores[counter % players] += previous.Value + counter + 1;
+                    circle.Remove(previous);
+                    current = nextprevious;
                 }
                 else
                 {
-                    currentNode = tree.AddAfter(currentNode, counter++);
-                    isLeft = true;
+                    current = circle.AddAfter(current.Next ?? circle.First, counter + 1);
+                }
+
+                counter++;
+            }
+
+            var maxScore = long.MinValue;
+            var maxPlayer = int.MinValue;
+            for (int i = 0; i < players; i++)
+            {
+                if (scores[i] > maxScore)
+                {
+                    maxScore = scores[i];
+                    maxPlayer = i + 1;
                 }
             }
 

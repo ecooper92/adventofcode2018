@@ -19,7 +19,7 @@ namespace AdventOfCode2018
             // Calculate part 1.
             var part1 = string.Empty;
 
-            var sn = 3628;
+            var sn = 5093;
             var area = new int[300, 300];
             for (int y = 0; y < area.GetLength(1); y++)
             {
