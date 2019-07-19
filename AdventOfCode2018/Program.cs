@@ -22,7 +22,9 @@ namespace AdventOfCode2018
             //Day7.Process();
             //Day8.Process();
             //Day9.Process();
-            Day11.Process();
+            //Day11.Process();
+            //Day12.Process();
+            Day13.Process();
 
             while (true)
             {
